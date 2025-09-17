@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:src="@drawable/logo"
+        android:contentDescription="Logo"
+        android:scaleType="centerInside"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mahamaya Jewellers"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:paddingBottom="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap to Start"
+        android:paddingBottom="18dp"/>
+
+    <EditText
+        android:id="@+id/customerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Customer Name"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:id="@+id/goldWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Gold Weight (gm)"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:id="@+id/goldRate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Rate (per gm)"
+        android:inputType="numberDecimal"/>
+
+    <Button
+        android:id="@+id/calcButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calculate"/>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total: "
+        android:textSize="20sp"
+        android:paddingTop="20dp"/>
+
+</LinearLayout>
+</ScrollView>
