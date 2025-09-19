@@ -13,22 +13,38 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Verify ZIP exists
+        run: ls -l
+
       - name: Unzip project
         run: |
           sudo apt-get update && sudo apt-get install -y unzip
-          unzip -o MahamayaJewellersApp.zip -d .
-      
+          unzip -o "*.zip" -d .
+          echo "------ Root directory after unzip ------"
+          ls -l
+          echo "------ app directory ------"
+          ls -l app || true
+          echo "------ gradle directory ------"
+          ls -l gradle || true
+
+      - name: Fail if gradlew missing
+        run: |
+          if [ ! -f "./gradlew" ]; then
+            echo "gradlew NOT FOUND in root! Failing..."
+            exit 1
+          fi
+          echo "gradlew found!"
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
-
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        run: |
+          chmod +x ./gradlew
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
