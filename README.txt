@@ -1,14 +1,37 @@
+name: Android Build (ZIP)
 
-MahamayaCalculator - Basic Android Studio project (debug)
+on:
+  push:
+    branches:
+      - main
 
-How to build APK:
-1. Open Android Studio.
-2. Choose 'Open' and select the folder 'MahamayaCalculator' (the folder that contains 'app').
-3. Let Android Studio sync the project. If it asks to create Gradle files or SDK, follow prompts and install recommended SDK.
-4. File -> Sync Project with Gradle Files (if needed).
-5. Build -> Build Bundle(s) / APK(s) -> Build APK(s).
-6. After build completes, click 'Locate' in the bottom-right notification to find the generated APK.
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-Notes:
-- This is a minimal template. If Android Studio prompts for Gradle or plugin updates, accept defaults.
-- If you want, share the generated APK file with me and I will help iterate.
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Unzip project
+        run: |
+          sudo apt-get update && sudo apt-get install -y unzip
+          unzip -o MahamayaJewellersApp.zip -d .
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: MahamayaCalculator-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
